@@ -22,8 +22,6 @@ for _ in range(T):
     for i in range(len(values)):
         members[values[i]].append(i + 1)
     
-    members = {team: ranks for team, ranks in members.items() if len(ranks) >= 6}
-
     min_score = 1e9
     fifth_min = 1e9
     index = 0
