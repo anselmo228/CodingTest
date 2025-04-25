@@ -1,38 +1,21 @@
-from collections import defaultdict, deque
-
-def solution(begin, target, words):
-    if target not in words:
-        return 0
-
-
-    graph = defaultdict(list)
+def solution(tickets):
+    n = len(tickets)
+    visited = [False]*n
     
-    def isOneLetterDiff(w1, w2):
-        return sum(a != b for a, b in zip(w1, w2)) == 1
-
-    for i in range(len(words)):
-        for j in range(len(words)):
-            if i != j and isOneLetterDiff(words[i], words[j]):
-                graph[words[i]].append(words[j])
+    answer = []
     
-    
-    for word in words:
-        if isOneLetterDiff(begin, word):
-            graph[begin].append(word)
-
-    queue = deque([(begin, 0)])
-    visited = set()
-
-    while queue:
-        current, depth = queue.popleft()
-
-        if current == target:
-            return depth
-
-        visited.add(current)
-        for neighbor in graph[current]:
-            if neighbor not in visited:
-                queue.append((neighbor, depth + 1))
-                visited.add(neighbor) 
-
-    return 0
+    def dfs(start, path):
+        
+        if len(path) == n + 1:
+            answer.append(path)
+            return
+            
+        for idx, ticket in enumerate(tickets):
+            if start == ticket[0] and visited[idx] == False:
+                visited[idx] = True
+                dfs(ticket[1], path+ [ticket[1]])
+                visited[idx] = False
+                
+    dfs("ICN", ["ICN"])
+    answer.sort()
+    return answer[0]
