@@ -4,13 +4,13 @@ dp = [i for i in range(D+1)]
 
 ways = []
 
+
 for _ in range(N):
     temp = list(map(int, input().split()))
-    if temp[1] - temp[0] > temp[2] and temp[1] < D+1:
+    if temp[1] - temp[0] > temp[2]:
         ways.append(temp)
 
 ways.sort()
-
 
 for way in ways:
     for i in range(1, D+1):
